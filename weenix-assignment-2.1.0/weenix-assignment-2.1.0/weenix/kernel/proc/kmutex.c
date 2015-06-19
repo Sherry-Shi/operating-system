@@ -42,9 +42,20 @@ kmutex_init(kmutex_t *mtx)
 void
 kmutex_lock(kmutex_t *mtx)
 {
-        // NOT_YET_IMPLEMENTED("PROCS: kmutex_lock");
-	KASSERT(mtx != NULL);
-	if(mtx)
+        //  NOT_YET_IMPLEMENTED("PROCS: kmutex_lock_cancellable");
+	 if (mtx->km_holder != NULL){
+        KASSERT(mtx->km_holder != curthr);
+        int wait_result = sched_cancellable_sleep_on(&mtx->km_waitq);
+
+        if (wait_result == -EINTR){
+            return -EINTR;
+        }
+    }
+
+    mtx->km_holder = curthr;
+
+    return 0;
+     //   return 0;
 }
 
 /*
@@ -54,8 +65,19 @@ kmutex_lock(kmutex_t *mtx)
 int
 kmutex_lock_cancellable(kmutex_t *mtx)
 {
-        NOT_YET_IMPLEMENTED("PROCS: kmutex_lock_cancellable");
-        return 0;
+        //  NOT_YET_IMPLEMENTED("PROCS: kmutex_lock_cancellable");
+	 if (mtx->km_holder != NULL){
+        KASSERT(mtx->km_holder != curthr);
+        int wait_result = sched_cancellable_sleep_on(&mtx->km_waitq);
+
+        if (wait_result == -EINTR){
+            return -EINTR;
+        }
+    }
+
+    mtx->km_holder = curthr;
+
+    return 0;
 }
 
 /*
@@ -75,5 +97,7 @@ kmutex_lock_cancellable(kmutex_t *mtx)
 void
 kmutex_unlock(kmutex_t *mtx)
 {
-        NOT_YET_IMPLEMENTED("PROCS: kmutex_unlock");
+      //    NOT_YET_IMPLEMENTED("PROCS: kmutex_unlock");
+	kthread_t *next_holder = sched_wakeup_on(&mtx->km_waitq);
+    mtx->km_holder = next_holder;
 }
