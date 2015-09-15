@@ -14,26 +14,10 @@ int My402ListInit(My402List *head){
 }
 
 int My402ListLength(My402List *head){
-//	My402ListElem *ptr = &(head->anchor);
-//	int count = 0;
-//	if(ptr->next == ptr || ptr->prev == ptr) return 0;
-//	else{		
-//		My402ListElem *cur = ptr->next;
-//		while(cur != ptr){
-//			count++;
-//			cur = cur->next;
-//		}
-//	}
-//	return count;
 	return head->num_members;
 }
 
 int My402ListEmpty(My402List *head){
-	// if(head->num_members == 0) return true;
-	// else return false;
-//	My402ListElem *ptr = &(head->anchor);
-//	if(ptr->next == ptr || ptr->prev == ptr) return TRUE;
-//	else return FALSE;
 	if((head->num_members) > 0) return false;
 	else return true;
 }
@@ -159,8 +143,6 @@ void My402ListUnlinkAll(My402List *head){
 		ptr = next;
 	}
 	head->num_members = 0;
-//	(head->anchor).prev = (head->anchor).next = anchor;
-//	return;
 }
 
 int My402ListInsertAfter(My402List *head, void *obj, My402ListElem *elem){
@@ -210,18 +192,6 @@ int My402ListInsertBefore(My402List *head, void *obj, My402ListElem *elem){
 				head->num_members++;
 				return true;
 			}		
-			// while(ptr != elem)
-			// 	ptr = ptr->next;
-			// if(ptr == elem){
-			// 	My402ListElem *cur = (My402ListElem*)malloc(sizeof(My402ListElem));
-			// 	My402ListElem *prev = elem->prev;
-			// 	cur->next = elem;
-			// 	elem->prev = cur;
-			// 	prev->next = cur;
-			// 	cur->prev = prev;
-			// 	cur->obj = obj;
-			// 	head->num_members++;
-			// 	return	true;
 		}
 		}
 	}
