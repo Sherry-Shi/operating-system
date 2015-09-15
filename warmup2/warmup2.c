@@ -400,20 +400,7 @@
 
 		void InitiateParemeter(int n, char *array[]){ 	
 			char *parm[] = {"-lambda","-mu","-r","-B","-P","-n","-t"};
-			// bool flag = false;
-			// for(int k = 0; k < 7; k++){
-			// 	for(int m = 1; m < n; m++){
-			// 		if(!strcmp(parm[k], array[m]) ){
-			// 			flag = true;
-			// 			break;
-			// 		}
-			// 		if(!flag){
-			// 		printf("please input correct parameter");
-			// 		exit(1);
-			// 	}
-			// 	}
-
-			// }
+	
 			for(int j = 0; j < 7;  j++){
 				for (int i = 0; i < n; ++i){
 					if(!(strcmp(array[i], parm[j]))){
